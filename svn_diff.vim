@@ -13,12 +13,14 @@ endfunction
 
 
 
-let g:svn_diff_use_vimproc = exists('*vimproc#system')
+if !exists('g:svn_diff_use_vimproc')
+  let g:svn_diff_use_vimproc = exists('*vimproc#system')
+endif
 function! s:system(list)
   if g:svn_diff_use_vimproc
     return vimproc#system(a:list)
   endif
-  return system(join(map(a:list, 'shellescape(v:val)'), ' '))
+  return system(join([a:list[0]] + map(a:list[1 :], 'shellescape(v:val)'), ' '))
 endfunction
 
 
