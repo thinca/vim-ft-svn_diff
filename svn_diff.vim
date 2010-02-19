@@ -7,7 +7,7 @@
 
 function! s:get_file_list()
   let list = []
-  global/^M\>/call add(list, substitute(getline('.'), '^M\s*\(.*\)', '\1', ''))
+  silent global/^M\>/call add(list, substitute(getline('.'), '^M\s*\(.*\)', '\1', ''))
   return list
 endfunction
 
