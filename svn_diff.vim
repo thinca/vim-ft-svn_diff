@@ -1,9 +1,19 @@
 " Show svn diff on footer.
 " Language: svn
-" Version:  0.1.0
+" Version:  0.2.0
 " Author:   thinca <thinca+vim@gmail.com>
 " License:  Creative Commons Attribution 2.1 Japan License
 "           <http://creativecommons.org/licenses/by/2.1/jp/deed.en>
+" URL:      http://gist.github.com/307495
+"
+" ChangeLog: {{{
+" 0.2.0   2010-03-05
+"         - Use :read! instead of system() to detect encoding automatically.
+"         - Check whether b:current_syntax exists.
+"
+" 0.1.0   2010-02-19
+"         - Initial version.
+" }}}
 
 function! s:get_file_list()
   let list = []
@@ -13,38 +23,35 @@ endfunction
 
 
 
-if !exists('g:svn_diff_use_vimproc')
-  let g:svn_diff_use_vimproc = exists('*vimproc#system')
-endif
-function! s:system(list)
-  if g:svn_diff_use_vimproc
-    return vimproc#system(a:list)
-  endif
-  return system(join([a:list[0]] + map(a:list[1 :], 'shellescape(v:val)'), ' '))
-endfunction
-
-
-
 function! s:show_diff()
   let list = s:get_file_list()
   if empty(list)
     return
   endif
-  let lang = $LANG
-  let $LANG = 'C'
-  let diff = s:system(['svn', 'diff'] + list)
-  let $LANG = lang
+
+  let q = '"'
+  call map(list, 'q . substitute(v:val, "!", "\\!", "g") . q')
 
   $put =[]
 
-  let current_syntax = b:current_syntax
-  unlet! b:current_syntax
+  let lang = $LANG
+  let $LANG = 'C'
+  execute '$read !svn diff' join(list, ' ')
+  let $LANG = lang
+
+  if exists('b:current_syntax')
+    let current_syntax = b:current_syntax
+    unlet! b:current_syntax
+  endif
   syntax include @svnDiff syntax/diff.vim
   syntax region svnDiff start="^=\+$" end="^\%$" contains=@svnDiff
-  let b:current_syntax = current_syntax
+  if exists('current_syntax')
+    let b:current_syntax = current_syntax
+  endif
 
-  $put = diff
   global/^Index:/delete _
+
+  1
 endfunction
 
 call s:show_diff()
