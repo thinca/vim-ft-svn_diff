@@ -1,12 +1,16 @@
 " Show svn diff on footer.
 " Language: svn
-" Version:  0.2.0
+" Version:  0.2.1
 " Author:   thinca <thinca+vim@gmail.com>
 " License:  Creative Commons Attribution 2.1 Japan License
 "           <http://creativecommons.org/licenses/by/2.1/jp/deed.en>
 " URL:      http://gist.github.com/307495
 "
 " ChangeLog: {{{
+" 0.2.1   2010-03-16
+"         - Improved for added/removed files.
+"         - Improved for property changes.
+"
 " 0.2.0   2010-03-05
 "         - Use :read! instead of system() to detect encoding automatically.
 "         - Check whether b:current_syntax exists.
@@ -17,7 +21,7 @@
 
 function! s:get_file_list()
   let list = []
-  silent global/^M\>/call add(list, substitute(getline('.'), '^M\s*\(.*\)', '\1', ''))
+  silent global/^[ADM_]/call add(list, substitute(getline('.'), '^..\s*\(.*\)', '\1', ''))
   return list
 endfunction
 
