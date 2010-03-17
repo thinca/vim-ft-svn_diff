@@ -1,12 +1,15 @@
 " Show svn diff on footer.
 " Language: svn
-" Version:  0.2.1
+" Version:  0.2.2
 " Author:   thinca <thinca+vim@gmail.com>
 " License:  Creative Commons Attribution 2.1 Japan License
 "           <http://creativecommons.org/licenses/by/2.1/jp/deed.en>
 " URL:      http://gist.github.com/307495
 "
 " ChangeLog: {{{
+" 0.2.2   2010-03-17
+"         - Remove \r on tail.
+"
 " 0.2.1   2010-03-16
 "         - Improved for added/removed files.
 "         - Improved for property changes.
@@ -42,6 +45,7 @@ function! s:show_diff()
   let $LANG = 'C'
   execute '$read !svn diff' join(list, ' ')
   let $LANG = lang
+  % substitute/\r$//
 
   if exists('b:current_syntax')
     let current_syntax = b:current_syntax
