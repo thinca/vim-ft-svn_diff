@@ -9,6 +9,8 @@
 " ChangeLog: {{{
 " 0.2.2   2010-03-17
 "         - Remove \r on tail.
+"         - Improved file name escape.
+"         - Improved view.
 "
 " 0.2.1   2010-03-16
 "         - Improved for added/removed files.
@@ -37,7 +39,7 @@ function! s:show_diff()
   endif
 
   let q = '"'
-  call map(list, 'q . substitute(v:val, "!", "\\!", "g") . q')
+  call map(list, 'q . substitute(v:val, "[!%#]", "\\\\\\0", "g") . q')
 
   $put =[]
 
@@ -45,7 +47,7 @@ function! s:show_diff()
   let $LANG = 'C'
   execute '$read !svn diff' join(list, ' ')
   let $LANG = lang
-  % substitute/\r$//
+  % substitute/\r$//e
 
   if exists('b:current_syntax')
     let current_syntax = b:current_syntax
@@ -57,8 +59,7 @@ function! s:show_diff()
     let b:current_syntax = current_syntax
   endif
 
-  global/^Index:/delete _
-
+  global/^Index:/-1put =[]
   1
 endfunction
 
