@@ -7,6 +7,9 @@
 " URL:      http://github.com/thinca/vim-ft-svn_diff
 "
 " ChangeLog: {{{
+" 0.2.4   2010-12-21
+"         - Improved the pattern to extract file name.
+"
 " 0.2.3   2010-03-18
 "         - Improved syntax timing.
 "         - Added the include guard.
@@ -36,8 +39,9 @@ let b:loaded_ftplugin_svn_diff = 1
 
 
 function! s:get_file_list()
+  let pat =  '^.\{5}\s*\zs.*'
   let list = []
-  silent global/^[ADM_]/call add(list, substitute(getline('.'), '^..\s*\(.*\)', '\1', ''))
+  silent global/^[ADM_]/call add(list, matchstr(getline('.'), pat))
   return list
 endfunction
 
