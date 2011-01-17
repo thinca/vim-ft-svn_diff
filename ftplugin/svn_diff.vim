@@ -64,7 +64,7 @@ function! s:show_diff()
   endif
 
   let q = '"'
-  call map(list, 'q . substitute(v:val, "[!%#]", "\\\\\\0", "g") . q')
+  call map(list, 'q . escape(v:val, "!%#") . q')
 
   $put =[]
 
