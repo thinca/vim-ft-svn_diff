@@ -4,7 +4,7 @@
 " Author:   thinca <thinca+vim@gmail.com>
 " License:  Creative Commons Attribution 2.1 Japan License
 "           <http://creativecommons.org/licenses/by/2.1/jp/deed.en>
-" URL:      http://github.com/thinca/vim-ft-svn_diff
+" URL:      https://github.com/thinca/vim-ft-svn_diff
 "
 " ChangeLog: {{{
 " 0.2.4   2010-12-21
