@@ -73,6 +73,7 @@ function! s:show_diff()
 
   let lang = $LANG
   let $LANG = 'C'
+  lcd %:h
   execute '$read !svn diff' join(list, ' ')
   let $LANG = lang
   % substitute/\r$//e
