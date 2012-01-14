@@ -40,7 +40,6 @@ endif
 let b:loaded_ftplugin_svn_diff = 1
 
 
-
 function! s:get_file_list()
   let pat =  '^.\{5}\s*\zs.*'
   let list = []
@@ -48,17 +47,12 @@ function! s:get_file_list()
   return list
 endfunction
 
-
-
 function! s:syntax()
   unlet! b:current_syntax
   syntax include @svnDiff syntax/diff.vim
   syntax region svnDiff start="^=\+$" end="^\%$" contains=@svnDiff
   let b:current_syntax = 'svn'
 endfunction
-
-
-
 
 function! s:show_diff()
   let list = s:get_file_list()
