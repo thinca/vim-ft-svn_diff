@@ -9,6 +9,7 @@
 " ChangeLog: {{{
 " x.x.x   xxxx-xx-xx
 "         - Check the "svn" command.
+"         - Fixed current directory.
 "
 " 0.2.4   2010-12-21
 "         - Improved the pattern to extract file name.
