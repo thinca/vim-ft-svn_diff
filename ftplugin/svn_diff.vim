@@ -6,7 +6,7 @@
 " URL:      https://github.com/thinca/vim-ft-svn_diff
 "
 " ChangeLog: {{{
-" x.x.x   xxxx-xx-xx
+" 0.3.0   2012-01-14
 "         - Check the "svn" command.
 "         - Fixed current directory.
 "
