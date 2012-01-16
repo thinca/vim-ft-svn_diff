@@ -1,6 +1,6 @@
 " Show svn diff on footer.
 " Language: svn
-" Version:  0.2.4
+" Version:  0.3.0
 " Author:   thinca <thinca+vim@gmail.com>
 " License:  License: zlib License
 " URL:      https://github.com/thinca/vim-ft-svn_diff
