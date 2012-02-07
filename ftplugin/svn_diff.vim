@@ -1,11 +1,14 @@
 " Show svn diff on footer.
 " Language: svn
-" Version:  0.3.0
+" Version:  0.3.1
 " Author:   thinca <thinca+vim@gmail.com>
 " License:  License: zlib License
 " URL:      https://github.com/thinca/vim-ft-svn_diff
 "
 " ChangeLog: {{{
+" 0.3.1   2012-02-07
+"         - Don't show a diff of a directory.
+"
 " 0.3.0   2012-01-14
 "         - Check the "svn" command.
 "         - Fixed current directory.
@@ -60,14 +63,14 @@ function! s:show_diff()
     return
   endif
 
-  let q = '"'
-  call map(list, 'q . escape(v:val, "!%#") . q')
-
   $put =[]
 
   let lang = $LANG
   let $LANG = 'C'
   lcd %:h
+  call filter(list, '!isdirectory(v:val)')
+  let q = '"'
+  call map(list, 'q . escape(v:val, "!%#") . q')
   execute '$read !svn diff' join(list, ' ')
   let $LANG = lang
   % substitute/\r$//e
