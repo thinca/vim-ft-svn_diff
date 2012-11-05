@@ -37,7 +37,7 @@
 "         - Initial version.
 " }}}
 
-if !executable('svn') || exists('b:loaded_ftplugin_svn_diff')
+if !executable('svn')
   finish
 endif
 let b:loaded_ftplugin_svn_diff = 1
