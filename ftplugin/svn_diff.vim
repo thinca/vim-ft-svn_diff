@@ -1,11 +1,14 @@
 " Show svn diff on footer.
 " Language: svn
-" Version:  0.3.1
+" Version:  0.3.2
 " Author:   thinca <thinca+vim@gmail.com>
 " License:  License: zlib License
 " URL:      https://github.com/thinca/vim-ft-svn_diff
 "
 " ChangeLog: {{{
+" 0.3.2   2012-12-10
+"         - Fix for reload.
+"
 " 0.3.1   2012-02-07
 "         - Don't show a diff of a directory.
 "
@@ -41,6 +44,13 @@ if !executable('svn') || exists('b:loaded_ftplugin_svn_diff')
   finish
 endif
 let b:loaded_ftplugin_svn_diff = 1
+
+let s:undo_ftplgin = 'unlet! b:loaded_ftplugin_svn_diff'
+if exists('b:undo_ftplugin')
+  let  b:undo_ftplugin = s:undo_ftplgin . ' | ' . b:undo_ftplugin
+else
+  let  b:undo_ftplugin = s:undo_ftplgin
+endif
 
 
 function! s:get_file_list()
